@@ -1,0 +1,651 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x905ABDD273F4F7FF",
+      "device": "xc7z020clg400-1",
+      "gen_directory": "../../../../full_radio_v1_0_project.gen/sources_1/bd/radio_bd",
+      "name": "radio_bd",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2025.2",
+      "validated": "true"
+    },
+    "design_tree": {
+      "dds_compiler_tuning": "",
+      "dds_compiler_fake_adc": "",
+      "fir_compiler_18k_64dec_left": "",
+      "fir_compiler_18k_64dec_right": "",
+      "fir_compiler_576k_40dec_left": "",
+      "fir_compiler_576k_40dec_right": ""
+    },
+    "ports": {
+      "aresetn": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default"
+          }
+        }
+      },
+      "dds_fake_adc_out": {
+        "type": "data",
+        "direction": "O",
+        "left": "15",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "dds_filt_out_left": {
+        "direction": "O",
+        "left": "47",
+        "right": "0"
+      },
+      "dds_filt_out_right": {
+        "direction": "O",
+        "left": "47",
+        "right": "0"
+      },
+      "dds_tuning_out": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "mixed_dds_left": {
+        "direction": "I",
+        "left": "15",
+        "right": "0"
+      },
+      "mixed_dds_right": {
+        "direction": "I",
+        "left": "15",
+        "right": "0"
+      },
+      "sys_clk": {
+        "direction": "I"
+      },
+      "fake_adc_axi_data": {
+        "type": "data",
+        "direction": "I",
+        "left": "31",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "fake_adc_axi_tvalid": {
+        "direction": "I"
+      },
+      "tuning_axi_data": {
+        "type": "data",
+        "direction": "I",
+        "left": "31",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "tuning_axi_tvalid": {
+        "direction": "I"
+      }
+    },
+    "components": {
+      "dds_compiler_tuning": {
+        "vlnv": "xilinx.com:ip:dds_compiler:6.0",
+        "ip_revision": "28",
+        "xci_name": "radio_bd_dds_compiler_0_0",
+        "xci_path": "ip\\radio_bd_dds_compiler_0_0\\radio_bd_dds_compiler_0_0.xci",
+        "inst_hier_path": "dds_compiler_tuning",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "Amplitude_Mode": {
+            "value": "Unit_Circle"
+          },
+          "DATA_Has_TLAST": {
+            "value": "Not_Required"
+          },
+          "DDS_Clock_Rate": {
+            "value": "125"
+          },
+          "Frequency_Resolution": {
+            "value": "0.4"
+          },
+          "Has_ARESETn": {
+            "value": "true"
+          },
+          "Has_Phase_Out": {
+            "value": "false"
+          },
+          "Latency": {
+            "value": "7"
+          },
+          "M_DATA_Has_TUSER": {
+            "value": "Not_Required"
+          },
+          "Negative_Sine": {
+            "value": "true"
+          },
+          "Noise_Shaping": {
+            "value": "None"
+          },
+          "OUTPUT_FORM": {
+            "value": "Twos_Complement"
+          },
+          "Output_Frequency1": {
+            "value": "0"
+          },
+          "Output_Width": {
+            "value": "16"
+          },
+          "PINC1": {
+            "value": "0"
+          },
+          "Parameter_Entry": {
+            "value": "Hardware_Parameters"
+          },
+          "Phase_Increment": {
+            "value": "Streaming"
+          },
+          "Phase_Width": {
+            "value": "32"
+          },
+          "S_PHASE_Has_TUSER": {
+            "value": "Not_Required"
+          }
+        }
+      },
+      "dds_compiler_fake_adc": {
+        "vlnv": "xilinx.com:ip:dds_compiler:6.0",
+        "ip_revision": "28",
+        "xci_name": "radio_bd_dds_compiler_fake_adc_0",
+        "xci_path": "ip\\radio_bd_dds_compiler_fake_adc_0\\radio_bd_dds_compiler_fake_adc_0.xci",
+        "inst_hier_path": "dds_compiler_fake_adc",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "Amplitude_Mode": {
+            "value": "Unit_Circle"
+          },
+          "DATA_Has_TLAST": {
+            "value": "Not_Required"
+          },
+          "DDS_Clock_Rate": {
+            "value": "125"
+          },
+          "Frequency_Resolution": {
+            "value": "0.4"
+          },
+          "Has_ARESETn": {
+            "value": "true"
+          },
+          "Has_Phase_Out": {
+            "value": "false"
+          },
+          "Has_TREADY": {
+            "value": "false"
+          },
+          "Latency": {
+            "value": "8"
+          },
+          "Latency_Configuration": {
+            "value": "Auto"
+          },
+          "M_DATA_Has_TUSER": {
+            "value": "Not_Required"
+          },
+          "Noise_Shaping": {
+            "value": "Taylor_Series_Corrected"
+          },
+          "OUTPUT_FORM": {
+            "value": "Twos_Complement"
+          },
+          "Optimization_Goal": {
+            "value": "Auto"
+          },
+          "Output_Frequency1": {
+            "value": "0"
+          },
+          "Output_Selection": {
+            "value": "Sine"
+          },
+          "Output_Width": {
+            "value": "16"
+          },
+          "PINC1": {
+            "value": "0"
+          },
+          "Parameter_Entry": {
+            "value": "Hardware_Parameters"
+          },
+          "PartsPresent": {
+            "value": "Phase_Generator_and_SIN_COS_LUT"
+          },
+          "Phase_Increment": {
+            "value": "Streaming"
+          },
+          "Phase_Width": {
+            "value": "32"
+          },
+          "Phase_offset": {
+            "value": "None"
+          },
+          "S_PHASE_Has_TUSER": {
+            "value": "Not_Required"
+          }
+        }
+      },
+      "fir_compiler_18k_64dec_left": {
+        "vlnv": "xilinx.com:ip:fir_compiler:7.2",
+        "ip_revision": "26",
+        "xci_name": "radio_bd_fir_compiler_18k_64dec_left_0",
+        "xci_path": "ip\\radio_bd_fir_compiler_18k_64dec_left_0\\radio_bd_fir_compiler_18k_64dec_left_0.xci",
+        "inst_hier_path": "fir_compiler_18k_64dec_left",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "Clock_Frequency": {
+            "value": "125"
+          },
+          "CoefficientSource": {
+            "value": "COE_File"
+          },
+          "Coefficient_File": {
+            "value": "../../../../../../../../../../../OneDrive/Documents/Johns Hopkins/525.742 SOC FPGA Design Lab/Module 6 FIR Filter Design and Analysis/Lab/fir_compiler_v7_2_bitacc_cmodel_nt64/filt2.coe"
+          },
+          "Coefficient_Fractional_Bits": {
+            "value": "0"
+          },
+          "Coefficient_Sets": {
+            "value": "1"
+          },
+          "Coefficient_Sign": {
+            "value": "Signed"
+          },
+          "Coefficient_Structure": {
+            "value": "Inferred"
+          },
+          "Coefficient_Width": {
+            "value": "32"
+          },
+          "Decimation_Rate": {
+            "value": "64"
+          },
+          "Filter_Architecture": {
+            "value": "Systolic_Multiply_Accumulate"
+          },
+          "Filter_Type": {
+            "value": "Decimation"
+          },
+          "Has_ARESETn": {
+            "value": "true"
+          },
+          "Interpolation_Rate": {
+            "value": "1"
+          },
+          "Number_Channels": {
+            "value": "1"
+          },
+          "Output_Rounding_Mode": {
+            "value": "Full_Precision"
+          },
+          "Output_Width": {
+            "value": "41"
+          },
+          "Quantization": {
+            "value": "Integer_Coefficients"
+          },
+          "RateSpecification": {
+            "value": "Frequency_Specification"
+          },
+          "S_DATA_Has_FIFO": {
+            "value": "false"
+          },
+          "Sample_Frequency": {
+            "value": "3.125"
+          },
+          "Zero_Pack_Factor": {
+            "value": "1"
+          }
+        }
+      },
+      "fir_compiler_18k_64dec_right": {
+        "vlnv": "xilinx.com:ip:fir_compiler:7.2",
+        "ip_revision": "26",
+        "xci_name": "radio_bd_fir_compiler_18k_64dec_right_0",
+        "xci_path": "ip\\radio_bd_fir_compiler_18k_64dec_right_0\\radio_bd_fir_compiler_18k_64dec_right_0.xci",
+        "inst_hier_path": "fir_compiler_18k_64dec_right",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "Clock_Frequency": {
+            "value": "125"
+          },
+          "CoefficientSource": {
+            "value": "COE_File"
+          },
+          "Coefficient_File": {
+            "value": "../../../../../../../../../../../OneDrive/Documents/Johns Hopkins/525.742 SOC FPGA Design Lab/Module 6 FIR Filter Design and Analysis/Lab/fir_compiler_v7_2_bitacc_cmodel_nt64/filt2.coe"
+          },
+          "Coefficient_Fractional_Bits": {
+            "value": "0"
+          },
+          "Coefficient_Sets": {
+            "value": "1"
+          },
+          "Coefficient_Sign": {
+            "value": "Signed"
+          },
+          "Coefficient_Structure": {
+            "value": "Inferred"
+          },
+          "Coefficient_Width": {
+            "value": "32"
+          },
+          "Decimation_Rate": {
+            "value": "64"
+          },
+          "Filter_Architecture": {
+            "value": "Systolic_Multiply_Accumulate"
+          },
+          "Filter_Type": {
+            "value": "Decimation"
+          },
+          "Has_ARESETn": {
+            "value": "true"
+          },
+          "Interpolation_Rate": {
+            "value": "1"
+          },
+          "Number_Channels": {
+            "value": "1"
+          },
+          "Output_Rounding_Mode": {
+            "value": "Full_Precision"
+          },
+          "Output_Width": {
+            "value": "41"
+          },
+          "Quantization": {
+            "value": "Integer_Coefficients"
+          },
+          "RateSpecification": {
+            "value": "Frequency_Specification"
+          },
+          "S_DATA_Has_FIFO": {
+            "value": "false"
+          },
+          "Sample_Frequency": {
+            "value": "3.125"
+          },
+          "Zero_Pack_Factor": {
+            "value": "1"
+          }
+        }
+      },
+      "fir_compiler_576k_40dec_left": {
+        "vlnv": "xilinx.com:ip:fir_compiler:7.2",
+        "ip_revision": "26",
+        "xci_name": "radio_bd_fir_compiler_576k_40dec_left_0",
+        "xci_path": "ip\\radio_bd_fir_compiler_576k_40dec_left_0\\radio_bd_fir_compiler_576k_40dec_left_0.xci",
+        "inst_hier_path": "fir_compiler_576k_40dec_left",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "Clock_Frequency": {
+            "value": "125"
+          },
+          "CoefficientSource": {
+            "value": "COE_File"
+          },
+          "Coefficient_File": {
+            "value": "../../../../../../../../../../../OneDrive/Documents/Johns Hopkins/525.742 SOC FPGA Design Lab/Module 6 FIR Filter Design and Analysis/Lab/fir_compiler_v7_2_bitacc_cmodel_nt64/filt1.coe"
+          },
+          "Coefficient_Fractional_Bits": {
+            "value": "0"
+          },
+          "Coefficient_Sets": {
+            "value": "1"
+          },
+          "Coefficient_Sign": {
+            "value": "Signed"
+          },
+          "Coefficient_Structure": {
+            "value": "Inferred"
+          },
+          "Coefficient_Width": {
+            "value": "32"
+          },
+          "ColumnConfig": {
+            "value": "3"
+          },
+          "Decimation_Rate": {
+            "value": "40"
+          },
+          "Filter_Architecture": {
+            "value": "Systolic_Multiply_Accumulate"
+          },
+          "Filter_Type": {
+            "value": "Decimation"
+          },
+          "Has_ARESETn": {
+            "value": "true"
+          },
+          "Interpolation_Rate": {
+            "value": "1"
+          },
+          "Number_Channels": {
+            "value": "1"
+          },
+          "Output_Rounding_Mode": {
+            "value": "Truncate_LSBs"
+          },
+          "Output_Width": {
+            "value": "16"
+          },
+          "Quantization": {
+            "value": "Integer_Coefficients"
+          },
+          "RateSpecification": {
+            "value": "Frequency_Specification"
+          },
+          "S_DATA_Has_FIFO": {
+            "value": "false"
+          },
+          "Sample_Frequency": {
+            "value": "125"
+          },
+          "Zero_Pack_Factor": {
+            "value": "1"
+          }
+        }
+      },
+      "fir_compiler_576k_40dec_right": {
+        "vlnv": "xilinx.com:ip:fir_compiler:7.2",
+        "ip_revision": "26",
+        "xci_name": "radio_bd_fir_compiler_576k_40dec_right_0",
+        "xci_path": "ip\\radio_bd_fir_compiler_576k_40dec_right_0\\radio_bd_fir_compiler_576k_40dec_right_0.xci",
+        "inst_hier_path": "fir_compiler_576k_40dec_right",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "Clock_Frequency": {
+            "value": "125"
+          },
+          "CoefficientSource": {
+            "value": "COE_File"
+          },
+          "Coefficient_File": {
+            "value": "../../../../../../../../../../../OneDrive/Documents/Johns Hopkins/525.742 SOC FPGA Design Lab/Module 6 FIR Filter Design and Analysis/Lab/fir_compiler_v7_2_bitacc_cmodel_nt64/filt1.coe"
+          },
+          "Coefficient_Fractional_Bits": {
+            "value": "0"
+          },
+          "Coefficient_Sets": {
+            "value": "1"
+          },
+          "Coefficient_Sign": {
+            "value": "Signed"
+          },
+          "Coefficient_Structure": {
+            "value": "Inferred"
+          },
+          "Coefficient_Width": {
+            "value": "32"
+          },
+          "ColumnConfig": {
+            "value": "3"
+          },
+          "Decimation_Rate": {
+            "value": "40"
+          },
+          "Filter_Architecture": {
+            "value": "Systolic_Multiply_Accumulate"
+          },
+          "Filter_Type": {
+            "value": "Decimation"
+          },
+          "Has_ARESETn": {
+            "value": "true"
+          },
+          "Interpolation_Rate": {
+            "value": "1"
+          },
+          "Number_Channels": {
+            "value": "1"
+          },
+          "Output_Rounding_Mode": {
+            "value": "Truncate_LSBs"
+          },
+          "Output_Width": {
+            "value": "16"
+          },
+          "Quantization": {
+            "value": "Integer_Coefficients"
+          },
+          "RateSpecification": {
+            "value": "Frequency_Specification"
+          },
+          "S_DATA_Has_FIFO": {
+            "value": "false"
+          },
+          "Sample_Frequency": {
+            "value": "125"
+          },
+          "Zero_Pack_Factor": {
+            "value": "1"
+          }
+        }
+      }
+    },
+    "interface_nets": {
+      "fir_compiler_576k_40dec_M_AXIS_DATA": {
+        "interface_ports": [
+          "fir_compiler_576k_40dec_right/M_AXIS_DATA",
+          "fir_compiler_18k_64dec_right/S_AXIS_DATA"
+        ]
+      },
+      "fir_compiler_576k_40dec_left_M_AXIS_DATA": {
+        "interface_ports": [
+          "fir_compiler_576k_40dec_left/M_AXIS_DATA",
+          "fir_compiler_18k_64dec_left/S_AXIS_DATA"
+        ]
+      }
+    },
+    "nets": {
+      "dds_compiler_0_m_axis_data_tdata": {
+        "ports": [
+          "dds_compiler_fake_adc/m_axis_data_tdata",
+          "dds_fake_adc_out"
+        ]
+      },
+      "dds_compiler_0_m_axis_data_tdata1": {
+        "ports": [
+          "dds_compiler_tuning/m_axis_data_tdata",
+          "dds_tuning_out"
+        ]
+      },
+      "fake_adc_axi_data_1": {
+        "ports": [
+          "fake_adc_axi_data",
+          "dds_compiler_fake_adc/s_axis_phase_tdata"
+        ]
+      },
+      "fake_adc_axi_tvalid_1": {
+        "ports": [
+          "fake_adc_axi_tvalid",
+          "dds_compiler_fake_adc/s_axis_phase_tvalid"
+        ]
+      },
+      "fir_compiler_0_m_axis_data_tdata": {
+        "ports": [
+          "fir_compiler_18k_64dec_right/m_axis_data_tdata",
+          "dds_filt_out_right"
+        ]
+      },
+      "fir_compiler_18k_64dec_left_m_axis_data_tdata": {
+        "ports": [
+          "fir_compiler_18k_64dec_left/m_axis_data_tdata",
+          "dds_filt_out_left"
+        ]
+      },
+      "mixed_dds_left_1": {
+        "ports": [
+          "mixed_dds_left",
+          "fir_compiler_576k_40dec_left/s_axis_data_tdata"
+        ]
+      },
+      "mixed_dds_right_1": {
+        "ports": [
+          "mixed_dds_right",
+          "fir_compiler_576k_40dec_right/s_axis_data_tdata"
+        ]
+      },
+      "sys_clock_1": {
+        "ports": [
+          "sys_clk",
+          "dds_compiler_fake_adc/aclk",
+          "fir_compiler_576k_40dec_right/aclk",
+          "fir_compiler_18k_64dec_right/aclk",
+          "dds_compiler_tuning/aclk",
+          "fir_compiler_18k_64dec_left/aclk",
+          "fir_compiler_576k_40dec_left/aclk"
+        ]
+      },
+      "tuning_axi_data_1": {
+        "ports": [
+          "tuning_axi_data",
+          "dds_compiler_tuning/s_axis_phase_tdata"
+        ]
+      },
+      "tuning_axi_tvalid_1": {
+        "ports": [
+          "tuning_axi_tvalid",
+          "dds_compiler_tuning/s_axis_phase_tvalid"
+        ]
+      },
+      "xpm_cdc_resetn_dest_arst": {
+        "ports": [
+          "aresetn",
+          "fir_compiler_576k_40dec_right/aresetn",
+          "fir_compiler_18k_64dec_right/aresetn",
+          "fir_compiler_18k_64dec_left/aresetn",
+          "fir_compiler_576k_40dec_left/s_axis_data_tvalid",
+          "fir_compiler_576k_40dec_right/s_axis_data_tvalid",
+          "fir_compiler_576k_40dec_left/aresetn",
+          "dds_compiler_fake_adc/aresetn",
+          "dds_compiler_tuning/aresetn"
+        ]
+      }
+    }
+  }
+}
