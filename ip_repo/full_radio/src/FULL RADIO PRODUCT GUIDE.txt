@@ -1,0 +1,19 @@
+FULL RADIO PRODUCT GUIDE
+Author: Ron Jackson
+
+This Radio has a left and right audio output channel in the format of 16 bits of Left data in the upper 16 bits of the 32 bit output, and 16 bits of Right data in the lower 16 bits.
+
+The Radio can be controlled by AXI GPIO to the 4 registers.
+
+BASE + 0x00: Fake_ADC_PINC_Register. Writes to this register will set the
+phase increment of the fake-adc DDS. Reads from this register will return the
+current phase increment (i.e. what you wrote).
+
+BASE + 0x04: Tuner_PINC_Register. Writes to this register will set the phase increment of the tuner DDS. Reads from
+this register will return the current phase increment (i.e. what you wrote).
+
+BASE + 0x08 Control Register. The only bit implemented in the control register at this time will be the reset to the DDS.
+When bit 0 of this register is ‘1’, the DDS will be in reset. Reads from this register return what was written.
+
+BASE + 0x0C Timer Register. Writing this location will have no effect. Reading this location will return the
+value of a 32-bit free running counter which is counting clocks.
