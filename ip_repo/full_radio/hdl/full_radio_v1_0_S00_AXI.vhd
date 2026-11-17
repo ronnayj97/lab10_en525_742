@@ -159,7 +159,6 @@ architecture arch_imp of full_radio_v1_0_S00_AXI is
     signal m_axis_data_tvalid_stage_2_left : STD_LOGIC;
     -- Right
     signal s_axis_data_tdata_stage_2_right : STD_LOGIC_VECTOR(15 downto 0);
-    signal m_axis_data_tvalid_stage_2_right : STD_LOGIC;
     
     -- Declare fake adc dds compiler
     COMPONENT fake_adc_dds_compiler
@@ -195,11 +194,11 @@ architecture arch_imp of full_radio_v1_0_S00_AXI is
     signal dds_fake_adc_out : STD_LOGIC_VECTOR(15 downto 0); -- output of 'fake adc' dds compiler(cosine)
     signal dds_tuning_out : STD_LOGIC_VECTOR(31 downto 0); -- output of tuning dds compiler (sine+cosine) 
     signal dds_filt_out_right : STD_LOGIC_VECTOR(47 downto 0); -- right dds filtered output
-    signal dds_filt_out_right_shifted : STD_LOGIC_VECTOR(47 downto 0); -- right dds filtered output, shifted
+    signal dds_filt_out_real_shifted : STD_LOGIC_VECTOR(47 downto 0); -- right dds filtered output, shifted
     signal dds_filt_out_left : STD_LOGIC_VECTOR(47 downto 0); -- left dds filtered output
-    signal dds_filt_out_left_shifted : STD_LOGIC_VECTOR(47 downto 0); -- left dds filtered output, shifted
-    signal mixed_dds_right : STD_LOGIC_VECTOR(15 downto 0); -- real part of complex dds output
-    signal mixed_dds_left : STD_LOGIC_VECTOR(15 downto 0); -- imaginary part of complex dds output
+    signal dds_filt_out_imag_shifted : STD_LOGIC_VECTOR(47 downto 0); -- left dds filtered output, shifted
+    signal mixed_dds_real : STD_LOGIC_VECTOR(15 downto 0); -- real part of complex dds output
+    signal mixed_dds_imag : STD_LOGIC_VECTOR(15 downto 0); -- imaginary part of complex dds output
     signal temp_mixer_out1 : STD_LOGIC_VECTOR(31 downto 0); -- temporary signal to hold 32 bit result
     signal temp_mixer_out1_shifted : STD_LOGIC_VECTOR(31 downto 0); -- temporary 16 bit array
     signal temp_mixer_out2 : STD_LOGIC_VECTOR(31 downto 0); -- temporary signal to hold 32 bit result
@@ -478,7 +477,7 @@ begin
         aclk => S_AXI_ACLK,
         s_axis_data_tvalid => '1',
         s_axis_data_tready => open,
-        s_axis_data_tdata => mixed_dds_left,
+        s_axis_data_tdata => mixed_dds_imag,
         m_axis_data_tvalid => m_axis_data_tvalid_stage_1_left,
         m_axis_data_tdata => m_axis_data_tdata_stage_1_left
       );
@@ -501,7 +500,7 @@ begin
         aclk => S_AXI_ACLK,
         s_axis_data_tvalid => '1',
         s_axis_data_tready => open,
-        s_axis_data_tdata => mixed_dds_right,
+        s_axis_data_tdata => mixed_dds_real,
         m_axis_data_tvalid => m_axis_data_tvalid_stage_1_right,
         m_axis_data_tdata => m_axis_data_tdata_stage_1_right
       );
@@ -513,7 +512,7 @@ begin
         s_axis_data_tvalid => m_axis_data_tvalid_stage_1_right,
         s_axis_data_tready => open,
         s_axis_data_tdata => m_axis_data_tdata_stage_1_right,
-        m_axis_data_tvalid => m_axis_data_tvalid_stage_2_right,
+        m_axis_data_tvalid => m_axis_tvalid,
         m_axis_data_tdata => dds_filt_out_right
       );
       
@@ -551,20 +550,19 @@ begin
     -- Only works without truncation when outputs are less than 1/2 of max value of 16 bit value.
     temp_mixer_out1 <= std_logic_vector(signed(dds_fake_adc_out)*signed(dds_tuning_out(31 downto 16)));
     temp_mixer_out1_shifted <= std_logic_vector(shift_right(signed(temp_mixer_out1), 14)); -- max output of dds in unit circle mode is < 2^14, shift by 14 bits
-    mixed_dds_left <= temp_mixer_out1_shifted(15 downto 0);
+    mixed_dds_imag <= temp_mixer_out1_shifted(15 downto 0);
     
     temp_mixer_out2 <= std_logic_vector(signed(dds_fake_adc_out)*signed(dds_tuning_out(15 downto 0)));
     temp_mixer_out2_shifted <= std_logic_vector(shift_right(signed(temp_mixer_out2), 14)); -- max output of dds in unit circle mode is < 2^14, shift by 14 bits
-    mixed_dds_right <= temp_mixer_out2_shifted(15 downto 0);
+    mixed_dds_real <= temp_mixer_out2_shifted(15 downto 0);
     
     -- Combinational logic for bit shifting and routing
-    dds_filt_out_right_shifted <= std_logic_vector((shift_right(signed(dds_filt_out_right), SCALEFACTOR)));
-    dds_filt_out_left_shifted <= std_logic_vector((shift_right(signed(dds_filt_out_left), SCALEFACTOR)));
-    m_axis_tdata(31 downto 16) <= dds_filt_out_left_shifted(15 downto 0);
-    m_axis_tdata(15 downto 0) <= dds_filt_out_right_shifted(15 downto 0);
+    dds_filt_out_real_shifted <= std_logic_vector((shift_right(signed(dds_filt_out_right), SCALEFACTOR)));
+    dds_filt_out_imag_shifted <= std_logic_vector((shift_right(signed(dds_filt_out_left), SCALEFACTOR)));
     
-    -- Valid when both DDS (left and right) agree it is
-    m_axis_tvalid <= '1' when m_axis_data_tvalid_stage_2_right = '1' AND m_axis_data_tvalid_stage_2_left = '1' else '0';
+    -- Ignore output of left filter
+    m_axis_tdata(31 downto 16) <= dds_filt_out_real_shifted(15 downto 0);
+    m_axis_tdata(15 downto 0) <= dds_filt_out_real_shifted(15 downto 0);
     
 ---------------------------- END DDS Output Mixing  -----------------------------------------------------------
 ---------------------------- CLOCK COUNTER  --------------------------------------------------------------

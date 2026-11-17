@@ -5,7 +5,7 @@
     "cell_name": "full_radio_v1_0_S00_AXI_inst/fir_stage_1_left",
     "component_reference": "xilinx.com:ip:fir_compiler:7.2",
     "ip_revision": "26",
-    "gen_directory": "c:/users/ronna/documents/github/radio_periph_lab/vivado/radio_periph_lab.tmp/full_radio_v1_0_project/full_radio_v1_0_project.gen/sources_1/ip/fir_compiler_0",
+    "gen_directory": "c:/users/ronna/documents/github/lab10_en525_742/vivado/radio_periph_lab.tmp/full_radio_v1_0_project/full_radio_v1_0_project.gen/sources_1/ip/fir_compiler_0",
     "parameters": {
       "component_parameters": {
         "Component_Name": [ { "value": "fir_compiler_0", "resolve_type": "user", "usage": "all" } ],
@@ -182,7 +182,7 @@
         "IPCONTEXT": [ { "value": "IP_Flow" } ],
         "IPREVISION": [ { "value": "26" } ],
         "MANAGED": [ { "value": "TRUE" } ],
-        "OUTPUTDIR": [ { "value": "c:/users/ronna/documents/github/radio_periph_lab/vivado/radio_periph_lab.tmp/full_radio_v1_0_project/full_radio_v1_0_project.gen/sources_1/ip/fir_compiler_0" } ],
+        "OUTPUTDIR": [ { "value": "c:/users/ronna/documents/github/lab10_en525_742/vivado/radio_periph_lab.tmp/full_radio_v1_0_project/full_radio_v1_0_project.gen/sources_1/ip/fir_compiler_0" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "." } ],
         "SWVERSION": [ { "value": "2025.2" } ],
@@ -354,5 +354,5 @@
       }
     }
   },
-  "checksum": "2d2a99c1"
+  "checksum": "514f21b6"
 }
